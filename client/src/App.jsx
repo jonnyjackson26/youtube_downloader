@@ -12,7 +12,7 @@ function App() {
     }
 
     try {
-      const response = await axios.post("/download", {
+      const response = await axios.post("https://jonny-youtube-downloader-88c737079369.herokuapp.com/download", {
         url,
       }, {
         responseType: "blob", // Ensures the file is treated as binary
