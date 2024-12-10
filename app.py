@@ -1,6 +1,6 @@
 from flask import Flask, request, jsonify, send_from_directory, send_file
 from flask_cors import CORS
-import yt_dlp
+from pytube import YouTube
 import os
 
 app = Flask(__name__, static_folder="dist", static_url_path="")
@@ -8,7 +8,6 @@ CORS(app)
 
 DOWNLOAD_FOLDER = "downloads"
 os.makedirs(DOWNLOAD_FOLDER, exist_ok=True)
-
 
 @app.route("/download", methods=["POST"])
 def download_video():
@@ -19,17 +18,16 @@ def download_video():
         return jsonify({"error": "No URL provided"}), 400
 
     try:
-        # Set yt-dlp options
-        ydl_opts = {
-            "outtmpl": os.path.join(DOWNLOAD_FOLDER, "%(title)s.%(ext)s"),
-            "format": "best",
-        }
+        # Create a YouTube object
+        yt = YouTube(url)
+        
+        # Get the best stream (this is typically the highest resolution video)
+        stream = yt.streams.get_highest_resolution()
 
         # Download video
-        with yt_dlp.YoutubeDL(ydl_opts) as ydl:
-            info = ydl.extract_info(url, download=True)
-            file_name = f"{info['title']}.mp4"
-            file_path = os.path.join(DOWNLOAD_FOLDER, file_name)
+        file_name = f"{yt.title}.mp4"
+        file_path = os.path.join(DOWNLOAD_FOLDER, file_name)
+        stream.download(output_path=DOWNLOAD_FOLDER, filename=file_name)
 
         # Ensure the file exists
         if not os.path.exists(file_path):
@@ -42,7 +40,6 @@ def download_video():
         # Log the error for debugging
         print(f"Error: {str(e)}")
         return jsonify({"error": str(e)}), 500
-
 
 # Serve React frontend
 @app.route("/")
