@@ -19,10 +19,14 @@ def download_video():
         return jsonify({"error": "No URL provided"}), 400
 
     try:
-        # Set yt-dlp options
+        # Path to the cookies file
+        cookies_file = "cookies.txt"  # Replace with your cookies file path
+
+        # Set yt-dlp options, including the cookies file
         ydl_opts = {
             "outtmpl": os.path.join(DOWNLOAD_FOLDER, "%(title)s.%(ext)s"),
             "format": "best",
+            "cookiefile": cookies_file,  # Pass cookies to yt-dlp
         }
 
         # Download video

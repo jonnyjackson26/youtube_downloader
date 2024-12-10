@@ -1,0 +1,9 @@
+# YouTube Cookies
+# Please ensure these are up to date and valid.
+
+# Authentication cookies
+.domain=.youtube.com    LOGIN_INFO=AFmmF2swRQIhAIBL2nxjk9qAzZOhZ8Qkmw3jIWzBh7VhQ6RWLBhf1KCuAiBzuoamXfwJOjN5zsX7Io1ac3dncvOiYudhP8e_qPJFfg:...
+.domain=.youtube.com    HSID=AEoxzSgM49koBqhio
+.domain=.youtube.com    SSID=AIxSJyB-CObUTpTkH
+.domain=.youtube.com    SID=g.a000qwhq-5TzRbrEQ-Xl5I1_QAM_UepnBsGQ5nEu8CWdUY1D_mfVuvEly53A3H6UmZDwy23vswACgYKAQcSARMSFQHGX2MiGfge_mM3pVXid-lvob5mgBoVAUF8yKpcWoEEAmNJqHqBf5RVm6VO0076
+.domain=.youtube.com    PREF=tz=America.Denver&f7=100&f4=4000000
