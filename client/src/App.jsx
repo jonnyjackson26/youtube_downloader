@@ -12,24 +12,25 @@ function App() {
     }
 
     try {
-      const response = await axios.post("/download", { /*for testing http://127.0.0.1:5000*/
-        url,
-      }, {
-        responseType: "blob", // Ensures the file is treated as binary
-      });
-
-      const blob = new Blob([response.data], { type: "video/mp4" });
-      const downloadUrl = window.URL.createObjectURL(blob);
-      const link = document.createElement("a");
-      link.href = downloadUrl;
-      link.download = "video.mp4"; // Default name; you can improve this
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
+      const response = await axios.post("/download", { url }, { responseType: "blob" });
+  
+      if (response.status === 200) {
+          const blob = new Blob([response.data], { type: "video/mp4" });
+          const downloadUrl = window.URL.createObjectURL(blob);
+          const link = document.createElement("a");
+          link.href = downloadUrl;
+          link.download = "video.mp4";
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+      } else {
+          setError("Failed to download the video.");
+      }
     } catch (err) {
-      console.error("Error downloading video:", err);
-      setError("Failed to download the video.");
+        console.error("Error downloading video:", err);
+        setError("Failed to download the video.");
     }
+  
   };
 
   return (

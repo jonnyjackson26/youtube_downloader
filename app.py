@@ -39,6 +39,8 @@ def download_video():
         return send_file(file_path, as_attachment=True)
 
     except Exception as e:
+        # Log the error for debugging
+        print(f"Error: {str(e)}")
         return jsonify({"error": str(e)}), 500
 
 
